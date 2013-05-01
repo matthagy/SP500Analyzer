@@ -6,7 +6,7 @@ namespace SP500Analyzer
 
     struct Date
     {
-        public int year, month, day;
+        public readonly int year, month, day;
 
         public Date(int year, int month, int day)
         {
@@ -18,8 +18,17 @@ namespace SP500Analyzer
 
     struct Entry
     {
-        public Date date;
-        public decimal open, high, low, close, volume;
+        public readonly Date date;
+        public readonly decimal open, high, low, close, volume;
+        public Entry(Date date, decimal open, decimal high, decimal low, decimal close, decimal volume)
+        {
+            this.date = date;
+            this.open = open;
+            this.high = high;
+            this.low = low;
+            this.close = close;
+            this.volume = volume;
+        }
     }
 
     class Column : IEnumerable<decimal>
