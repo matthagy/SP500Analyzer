@@ -115,7 +115,7 @@
             this.Controls.Add(this.priceChart);
             this.Name = "MainForm";
             this.Text = "SP500Analyzer";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.priceChart)).EndInit();
             this.optionsGroup.ResumeLayout(false);
             this.optionsGroup.PerformLayout();

@@ -22,7 +22,7 @@ namespace SP500Analyzer
         private bool normalizeData = false;
         private bool shiftData = false;
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void MainForm_Load(object sender, EventArgs e)
         {
             LoadStocks();
             priceChart.Series.Clear();
@@ -91,27 +91,25 @@ namespace SP500Analyzer
             var assembly = Assembly.GetExecutingAssembly();
             //using (var file = new StreamReader(assembly.GetManifestResourceStream("WindowsFormsApplication4.SP500.txt")))
             string contents = SP500Analyzer.Properties.Resources.SP500;
-            Debug.WriteLine("{0} chars", contents.Length);
             var lines = contents.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
-            Debug.WriteLine("{0} lines", lines.Length);
             foreach (var line in lines)
             {
                 var parts = line.Split(',');
                 if (parts.Length != 7)
                     continue;
+
                 var dateString = parts[0];
                 var symbol = parts[1];
-                var entry = new Entry()
-                {
-                    date = new Date(int.Parse(dateString.Substring(0, 4)),
+                var entry = new Entry(
+                    date:  new Date(int.Parse(dateString.Substring(0, 4)),
                                     int.Parse(dateString.Substring(4, 2)),
                                     int.Parse(dateString.Substring(6, 2))),
-                    open = Decimal.Parse(parts[2]),
-                    high = Decimal.Parse(parts[3]),
-                    low = Decimal.Parse(parts[4]),
-                    close = Decimal.Parse(parts[5]),
-                    volume = Decimal.Parse(parts[6])
-                };
+                    open: Decimal.Parse(parts[2]),
+                    high: Decimal.Parse(parts[3]),
+                    low: Decimal.Parse(parts[4]),
+                    close: Decimal.Parse(parts[5]),
+                    volume: Decimal.Parse(parts[6]));
+
                 if (!symbolMapping.ContainsKey(symbol))
                 {
                     symbolMapping[symbol] = new Ticker(symbol);
